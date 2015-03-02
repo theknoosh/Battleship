@@ -1,0 +1,43 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Feb 28, 2015, 10:49:02 PM
+    Author     : dpayne
+*/
+
+body {
+    margin: 25px 75px;
+}
+#battleship {
+    font-family: Arial, sans-serif;
+}
+#volley {
+    padding: 6px 10px;
+}
+#result {
+    margin-left: 20px;
+    font-size: 12px;
+}
+#board {
+    margin-top: 25px;
+}
+td {
+    width: 32px;
+    height: 32px;
+    font-size: 11px;
+    text-align: center;
+    border: 1px solid black;
+    color: #888;
+}
+.ship {
+    background-color: #CCC;
+}
+.miss {
+    background-color: #6CF;
+}
+.hit {
+    background-color: #F00;
+}
