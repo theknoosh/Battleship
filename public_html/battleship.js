@@ -1,6 +1,18 @@
+var myBoard = [[0,0,0,0,0,0,0,0,0],[0,1,0,0,0,0,0,0,1],[0,0,0,0,1,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0],[0,0,0,0,0,1,0,0,0],[0,0,0,0,0,0,0,1,0],[0,0,0,0,0,0,0,0,0],
+    [0,0,1,0,0,0,0,0,0],[0,0,0,1,0,0,0,0,0]];
+
 function start(){
     generate_table("tableOne");
     generate_table("tableTwo");
+    
+    // Generate ships
+    for (var i = 0, max = 8; i < max; i++) {
+        for(var j = 0, jmax = 8; j<jmax;j++)
+            if (myBoard[i][j] === 1){
+                change_cell(i,j);
+            }
+    }
 }
 
 function generate_table(myID) {
@@ -31,6 +43,7 @@ function generate_table(myID) {
       a.appendChild(linkText);
       a.title = "test";
       var jLink = "javascript:change_cell("+i+","+j+");";
+      
       console.log(jLink);
       a.href = jLink;
       cell.appendChild(a);
