@@ -29,7 +29,6 @@ function generate_table() {
       a.href = jLink;
       cell.appendChild(a);
       row.appendChild(cell);
-      
     }
  
     // add the row to the end of the table body
@@ -41,7 +40,7 @@ function generate_table() {
   // appends <table> into <body>
   body.appendChild(tbl);
   // sets the border attribute of tbl to 2;
-  tbl.setAttribute("border", "2"); 
+  tbl.setAttribute("border", "2");
 
 }
 
