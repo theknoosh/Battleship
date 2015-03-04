@@ -1,5 +1,5 @@
 var myBoard = [[0,0,0,0,0,0,0,0,0],[0,1,0,0,0,0,0,0,1],[0,0,0,0,1,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0],[0,0,0,0,0,1,0,0,0],[0,0,0,0,0,0,0,1,0],[0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0],[1,0,0,0,0,0,0,0,0],[0,0,1,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],
     [0,0,1,0,0,0,0,0,0],[0,0,0,1,0,0,0,0,0]];
 
 function start(){
@@ -10,7 +10,10 @@ function start(){
     for (var i = 0, max = 8; i < max; i++) {
         for(var j = 0, jmax = 8; j<jmax;j++)
             if (myBoard[i][j] === 1){
-                change_cell(i,j);
+                change_cell(i,j,"Images/battleship01.jpg");
+                change_cell(i,j+1,"Images/battleship02.jpg");
+                change_cell(i,j+2,"Images/battleship03.jpg");
+                change_cell(i,j+3,"Images/battleship04.jpg");
             }
     }
 }
@@ -39,12 +42,14 @@ function generate_table(myID) {
       var cell = document.createElement("td");
       var a = document.createElement('a');
       
-      var linkText = document.createTextNode("("+i+","+j+")");
-      a.appendChild(linkText);
+//      var linkText = document.createTextNode("("+i+","+j+")");
+//      var imageLink = document. 
+
+      var img = document.createElement('img');
+      img.src = "Images/waterTile.jpg";
+      a.appendChild(img);
       a.title = "test";
-      var jLink = "javascript:change_cell("+i+","+j+");";
-      
-      console.log(jLink);
+      var jLink = "javascript:change_cell("+i+","+j+",'Images/battleship02.jpg');";
       a.href = jLink;
       cell.appendChild(a);
       row.appendChild(cell);
@@ -59,10 +64,10 @@ function generate_table(myID) {
   // appends <table> into <body>
   body.appendChild(tbl);
   // sets the border attribute of tbl to 2;
-  tbl.setAttribute("border", "2");
+  tbl.setAttribute("border", "6");
 
 }
 
-function change_cell(row,col){
-   document.getElementById("tableTwo").rows[row].cells[col].style.backgroundColor = "red"; 
+function change_cell(row,col,myImage){
+   document.getElementById("tableTwo").rows[row].cells[col].innerHTML = "<img src = " + myImage + ">";
 }
