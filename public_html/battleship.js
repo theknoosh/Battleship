@@ -1,6 +1,10 @@
-var myBoard = [[0,0,0,0,0,0,0,0,0],[0,1,0,0,0,0,0,0,1],[0,0,0,0,1,0,0,0,0],
+var myBoard = [[0,0,0,0,0,0,0,0,0],[0,1,0,0,0,0,0,0,0],[0,0,0,0,1,0,0,0,0],
     [0,0,0,0,0,0,0,0,0],[1,0,0,0,0,0,0,0,0],[0,0,1,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],
     [0,0,1,0,0,0,0,0,0],[0,0,0,1,0,0,0,0,0]];
+
+var computerBoard = [[0,0,0,1,0,0,0,1,0],[0,0,0,0,1,0,0,0,1],[1,0,0,0,1,0,0,0,0],
+    [1,0,0,0,1,0,0,0,0],[0,0,0,1,0,0,0,1,0],[0,1,0,0,0,1,0,0,0],[0,1,0,0,0,0,1,0,0],
+    [1,0,0,0,1,0,0,0,0],[0,1,0,0,1,0,0,1,0]];
 
 function start(){
     generate_table("tableOne");
@@ -48,9 +52,12 @@ function generate_table(myID) {
       var img = document.createElement('img');
       img.src = "Images/waterTile.jpg";
       a.appendChild(img);
-      a.title = "test";
-      var jLink = "javascript:change_cell("+i+","+j+",'Images/battleship02.jpg');";
-      a.href = jLink;
+//      a.title = "test";
+      if(myID === "tableOne"){
+        var jLink = "javascript:make_move("+i+","+j+");";
+        a.href = jLink;
+      }
+      
       cell.appendChild(a);
       row.appendChild(cell);
     }
@@ -69,5 +76,16 @@ function generate_table(myID) {
 }
 
 function change_cell(row,col,myImage){
-   document.getElementById("tableTwo").rows[row].cells[col].innerHTML = "<img src = " + myImage + ">";
+   document.getElementById("tableTwo").rows[row].cells[col].innerHTML = 
+           "<img src = " + myImage + ">";
+}
+
+function make_move(row,col){
+    if(computerBoard[row][col]=== 1){
+        document.getElementById("tableOne").rows[row].cells[col].innerHTML =
+           "<img src = 'Images/water_red.jpg'>";
+    }else {
+   document.getElementById("tableOne").rows[row].cells[col].innerHTML =
+           "<img src = 'Images/water_grey.jpg'>";
+    }
 }
