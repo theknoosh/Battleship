@@ -125,7 +125,7 @@ function ComputerMoves() {
     var battleship_red04 = "<img src='Images/battleship_red04.jpg'>";
     
     if(ComputerMoves.noTargetSelected === undefined){
-        ComputerMoves.targetSelected = true;
+        ComputerMoves.noTargetSelected = true;
     }
     if(ComputerMoves.table === undefined){
          ComputerMoves.table = document.getElementById('tableTwo');   
@@ -142,18 +142,15 @@ function ComputerMoves() {
     if(ComputerMoves.currentRow === undefined){
         ComputerMoves.currentRow = 0;
     }
-    if(ComputerMoves.hitTarget === undefined){
-        ComputerMoves.hitTarget = {
-            targetFound: false,
-            targetCol:0,
-            targetRow:0
-        };
-    }
+    
     
     while(ComputerMoves.noTargetSelected){
         
         var cellSelected = ComputerMoves.table.rows[ComputerMoves.randomRow]
                 .cells[ComputerMoves.randomCol].innerHTML;
+        
+        console.log("Radom location at: "+ComputerMoves.randomRow+","+ComputerMoves.randomCol);
+        console.log("Computer shows hit status as: "+computerShots[ComputerMoves.randomRow][ComputerMoves.randomCol]);
         
         if (computerShots[ComputerMoves.randomRow][ComputerMoves.randomCol] === 1){ // Cell already selected
             // Try again
@@ -219,6 +216,7 @@ function ComputerMoves() {
         ComputerMoves.currentRow = undefined;
         ComputerMoves.randomCol = undefined;
         ComputerMoves.randomRow = undefined;
+        ComputerMoves.noTargetSelected = true;
         return;
     }
     
