@@ -11,6 +11,7 @@ var computerShots = [[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,,0,0,0,0],
     [0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0]];
 
 var lastCell;
+var battleships = new Array();
 
 function start(){
     generate_table("tableOne");
@@ -20,6 +21,7 @@ function start(){
     for (var i = 0, max = 8; i < max; i++) {
         for(var j = 0, jmax = 8; j<jmax;j++)
             if (myBoard[i][j] === 1){
+                battleships.push(new ship(i,j)); // Create ship when 1 found
                 change_cell(i,j,'Images/battleship01.jpg');
                 change_cell(i,j+1,'Images/battleship02.jpg');
                 change_cell(i,j+2,'Images/battleship03.jpg');
@@ -99,12 +101,6 @@ function make_move(row,col){
     testFunction();
 }
 
-function hit_cell(row,col){
-    // Mark cell as hit
-    // Check to see if battleship sunk
-    // Check to see if ALL battleships sunk
-    // If all battleships sunk, player wins
-}
 
 function ComputerMoves() {
     var redBox = "<img src = 'Images/water_red.jpg'>"; // Computer hit
@@ -142,16 +138,22 @@ function ComputerMoves() {
     if(ComputerMoves.currentRow === undefined){
         ComputerMoves.currentRow = 0;
     }
+    if(ComputerMoves.checkRight === undefined){
+        ComputerMoves.checkRight = 0;
+    }
+    if(ComputerMoves.checkLeft === undefined){
+        ComputerMoves.checkLeft = 0;
+    }
+    if(ComputerMoves.firstHit === undefined){
+        ComputerMoves.firstHit = false;
+    }
     
     
     while(ComputerMoves.noTargetSelected){
         
         var cellSelected = ComputerMoves.table.rows[ComputerMoves.randomRow]
                 .cells[ComputerMoves.randomCol].innerHTML;
-        
-        console.log("Radom location at: "+ComputerMoves.randomRow+","+ComputerMoves.randomCol);
-        console.log("Computer shows hit status as: "+computerShots[ComputerMoves.randomRow][ComputerMoves.randomCol]);
-        
+                
         if (computerShots[ComputerMoves.randomRow][ComputerMoves.randomCol] === 1){ // Cell already selected
             // Try again
             ComputerMoves.randomCol = Math.floor(Math.random() * 9);
@@ -171,19 +173,15 @@ function ComputerMoves() {
         ComputerMoves.table.rows[ComputerMoves.currentRow-1].cells[8]
             .innerHTML = ComputerMoves.lastCel;
     }
-//    console.log(ComputerMoves.currentRow+", "+ComputerMoves.currentCol);
     ComputerMoves.lastCel = ComputerMoves.table.rows[ComputerMoves.currentRow]
             .cells[ComputerMoves.currentCol].innerHTML;
     
-//    console.log("Content in row:"+ComputerMoves.currentRow+" col:"+ComputerMoves.currentCol + " = "+ ComputerMoves.lastCel);
     ComputerMoves.table.rows[ComputerMoves.currentRow].cells[ComputerMoves.currentCol]
             .innerHTML = redBox;
     
     if (ComputerMoves.currentRow === ComputerMoves.randomRow && ComputerMoves.currentCol === ComputerMoves.randomCol) {
         
-        // This is where we check for hit or miss
-        
-        // Remember current attempt
+        // Possible hit
         computerShots[ComputerMoves.currentRow][ComputerMoves.currentCol] = 1;
         var targetCell = ComputerMoves.lastCel;
         var tileName = targetCell.substr(17,12);
@@ -243,20 +241,18 @@ function testFunction() {
     myVar = setInterval(ComputerMoves, 100);
 }
 
-function alertFunc() {
-    alert("Hello!");
-    clearInterval(myVar);
+
+// Constructor for battleship
+function ship(x,y){
+    this.xcoord = x;
+    this.ycoord = y;
+    this.hit = [0,0,0,0];
+    this.isSunk = function(){ // Indicates is ship has been sunk
+       for (var j = 0; j < 5; j++) {
+           if (this.hit[j] === 0){
+               return false; // ship is not sunk
+           }
+           return true; // ship is sunk
+       } 
+    };
 }
-
-//var startTime = new Date().getTime(),
-//    elapsed = '0.0',timeElapsed;
-
-//window.setInterval(function()
-//{
-//    timeElapsed = new Date().getTime() - startTime;
-//
-//    elapsed = Math.floor(timeElapsed / 100) / 10;
-//    if(Math.round(elapsed) == elapsed) { elapsed += '.0'; }
-////    console.log(elapsed);
-//
-//}, 100);
